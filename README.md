@@ -7,13 +7,6 @@
   <a href="https://www.python.org/downloads/release/python-3100/"><img src="https://img.shields.io/badge/Python-3.10-blue.svg" alt="Python 3.10"></a>
 </p>
 
-<p align="center">
-  <strong>Soheila Ansari</strong>, <strong>Mounir Boukadoum</strong>, <strong>Fatiha Sadat</strong><br>
-  Université du Québec à Montréal<br>
-  <em>Proceedings of the First Workshop on NLP and LLMs for the Iranian Language Family (SilkRoadNLP @ ACL 2026)</em><br>
-  Rabat, Morocco · March 2026 · pp. 131–139
-</p>
-
 ---
 
 ## Overview
