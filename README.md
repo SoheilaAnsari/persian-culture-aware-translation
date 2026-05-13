@@ -13,7 +13,7 @@
 
 Code companion for the SilkRoadNLP 2026 paper on translating Rumi's *Masnavi-ye-Ma'navi* with a culture-aware evaluation methodology.
 
-This repository releases three of the four components described in the paper:
+This repository releases the following components described in the paper:
 
 1. **PPFT** — a text-only Persian→English translation baseline (domain-adaptive pre-training + fine-tuning of mBART-50).
 2. **PPFT + Wav2Vec2** — the multi-modal extension with cross-attention fusion of text and audio recitations.
@@ -98,8 +98,6 @@ The hypothesis file is one English translation per line, in the same order as th
 
 ## Reproducing the PPFT text-only baseline
 
-**Hardware used in the paper:** 4× NVIDIA A40 (48 GB VRAM each), driver 575.57.08, PyTorch DDP via `torchrun`, mixed precision (AMP).
-
 ```bash
 # Stage 1 — Domain-Adaptive Pre-training (span-masked denoising on Persian poetry)
 torchrun --nproc_per_node=4 src/text_baseline/domain_pretrain.py \
@@ -123,51 +121,15 @@ python src/text_baseline/evaluate.py \
 
 The Persian poetry corpus used for Stage 1 (1M lines, Rumi removed) is publicly available: [amnghd/Persian_poems_corpus](https://github.com/amnghd/Persian_poems_corpus/tree/master).
 
-Single-GPU runs work with `--nproc_per_node=1`. CPU is not feasible for training (it is fine for evaluation).
-
 ---
 
 ## Reproducing the multi-modal extension (PPFT + Wav2Vec2)
 
-The multi-modal model adds a cross-attention fusion layer between the PPFT text encoder and a frozen Wav2Vec2-XLS-R Persian audio encoder. It reproduces the paper's headline numbers: BLEU 17.95 / chrF++ 42.95 / BERTScore 0.894 / COMET 0.635 (Table 2) and CSI-Recall 82.04% / 89.04% / 75.73% (Table 3).
-
+The multi-modal model adds a cross-attention fusion layer between the PPFT text encoder and a frozen Wav2Vec2-XLS-R Persian audio encoder. 
 **Prerequisites:**
 
 1. **A trained PPFT checkpoint** (from `src/text_baseline/finetune.py`). The multi-modal training initializes its text encoder from this.
-2. **Audio recordings.** Obtain from [masnavi.net](https://masnavi.net/); resample to 16 kHz mono WAV; align filenames with the `audio_filename` column in the CSVs. Audio is NOT redistributed in this repository.
-3. **Data layout** under `<DATA_DIR>`:
-   ```
-   <DATA_DIR>/train/train.csv
-   <DATA_DIR>/train/audio/*.wav
-   <DATA_DIR>/val/val.csv
-   <DATA_DIR>/val/audio/*.wav
-   <DATA_DIR>/test/test.csv
-   <DATA_DIR>/test/audio/*.wav
-   ```
-
-**Run:**
-
-```bash
-# Required environment variables (or pass via --text-baseline-* flags)
-export DATA_DIR=path/to/masnavi_data
-export TEXT_BASELINE_HF=runs/ppft/checkpoints/best_hf
-export TEXT_BASELINE_PT=runs/ppft/checkpoints/best_finetuned.pt
-export TRANS_RUN_DIR=runs/multimodal
-
-# Train
-torchrun --nproc_per_node=4 src/multimodal/train.py \
-    --epochs 10 \
-    --batch_size 8 \
-    --grad_accum 2 \
-    --lr 2e-4 \
-    --warmup_steps 500
-```
-
-**Architecture summary** (paper §5.2):
-- Text encoder: mBART-50 (frozen, initialized from PPFT)
-- Audio encoder: Wav2Vec2-XLS-R 53 Persian (frozen)
-- Fusion: single cross-attention block (text queries audio) with a learnable sigmoid gate α ∈ [0,1]
-- Decoder: mBART decoder + lm_head (trainable)
+2. **Audio recordings.** Check out [masnavi.net](https://masnavi.net/); resample to 16 kHz mono WAV; align filenames with the `audio_filename` column in the CSVs. Audio is NOT redistributed in this repository.
 
 ---
 
@@ -244,31 +206,3 @@ If you use this code or the CSI methodology, please cite the paper:
 ```
 
 The `CITATION.cff` file is provided so GitHub renders a "Cite this repository" widget in the sidebar.
-
----
-
-## Scope and limitations
-
-**This repository releases** the PPFT text-only baseline, the multi-modal extension, the CSI evaluation framework, and the parallel Masnavi corpus (train/val/test splits with English translations).
-
-**This repository does NOT release** audio recordings (obtained from [masnavi.net](https://masnavi.net/) for non-commercial academic research; please obtain directly from that source) or pre-extracted Wav2Vec2 features.
-
-The full thesis (Ansari, 2026, UQAM) describes additional analyses including SOTA comparisons, human evaluation, and an alternative modality alignment phase, which are outside the scope of this code release.
-
----
-
-## License
-
-- **Source code:** MIT License (see [`LICENSE`](LICENSE)).
-- **Data artifacts** (CSI taxonomy, gold annotations, BIO datasets, lexicons, test set with CSI tags, parallel corpus): CC-BY 4.0.
-
----
-
-## Acknowledgements
-
-- Persian text and audio recordings: [masnavi.net](https://masnavi.net/); reciters Hosayn Āhī (books 1, 6) and Amīr Nūrī (books 2–5); sponsored by Noorsoft.
-- English translation: Reynold A. Nicholson (1925–1940), public domain since 2015.
-- Persian poetry corpus for DAP: [amnghd/Persian_poems_corpus](https://github.com/amnghd/Persian_poems_corpus).
-- Word alignment: [awesome-align](https://github.com/neulab/awesome-align) (Dou & Neubig, 2021).
-- Base models: [mBART-50](https://huggingface.co/facebook/mbart-large-50) (Tang et al., 2020); [Wav2Vec2-XLS-R 53 Persian](https://huggingface.co/jonatasgrosman/wav2vec2-large-xlsr-53-persian).
-- Computing resources: Université du Québec à Montréal computing cluster (4× NVIDIA A40 GPUs).
