@@ -1,0 +1,101 @@
+# =====================================================================
+# .gitignore for persian-culture-aware-translation
+# =====================================================================
+
+# ---------- Python ----------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.installed.cfg
+*.egg
+build/
+dist/
+pip-wheel-metadata/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ---------- Virtual environments ----------
+.venv/
+venv/
+env/
+ENV/
+.conda/
+
+# ---------- Jupyter ----------
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# ---------- IDE / OS ----------
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---------- PyTorch & ML checkpoints (host on HF Hub or Zenodo, not GitHub) ----------
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.ckpt
+*.h5
+checkpoint-*/
+checkpoints/
+
+# ---------- Logs and training artifacts ----------
+*.log
+*.out
+*.err
+wandb/
+mlruns/
+lightning_logs/
+runs/
+outputs/
+
+# ---------- Big binary data files ----------
+*.wav
+*.mp3
+*.flac
+*.ogg
+*.npy
+*.npz
+*.feather
+*.parquet
+*.arrow
+data/raw/
+data/audio/
+data/processed/
+*.tar
+*.tar.gz
+
+# ---------- Tokenizer files (regenerate from HuggingFace) ----------
+tokenizer.json
+
+# ---------- Per-run prediction dumps ----------
+preds_*.txt
+samples_epoch_*.txt
+training_*.txt
+
+# ---------- Awesome-align outputs (large, regenerate from source) ----------
+trainval.align*.txt
+trainval.rev.align*.txt
+trainval.sym.intersect*.txt
+
+# ---------- Secrets — NEVER commit ----------
+.env
+.env.*
+*.key
+*.pem
+*credentials*
+*secret*
+api_keys.json
+api_keys.yaml
+config_local.yaml
+.huggingface/
+.openai/

@@ -1,0 +1,53 @@
+cff-version: 1.2.0
+message: "If you use this code or the CSI methodology in your research, please cite the accompanying paper."
+title: "persian-culture-aware-translation: Code companion for SilkRoadNLP 2026"
+authors:
+  - family-names: "Ansari"
+    given-names: "Soheila"
+    affiliation: "Université du Québec à Montréal"
+version: "1.0.0"
+date-released: "2026-05-15"
+url: "https://github.com/Soheila1992/persian-culture-aware-translation"
+repository-code: "https://github.com/Soheila1992/persian-culture-aware-translation"
+license: MIT
+type: software
+keywords:
+  - "neural machine translation"
+  - "low-resource translation"
+  - "Persian NLP"
+  - "classical poetry"
+  - "Masnavi"
+  - "Rumi"
+  - "culture-aware translation"
+  - "culture-specific items"
+  - "CSI"
+  - "mBART"
+preferred-citation:
+  type: conference-paper
+  title: "Multi-modal Neural Machine Translation for Low-Resource Classical Persian Poetry: A Culture-Aware Evaluation"
+  authors:
+    - family-names: "Ansari"
+      given-names: "Soheila"
+    - family-names: "Boukadoum"
+      given-names: "Mounir"
+    - family-names: "Sadat"
+      given-names: "Fatiha"
+  editors:
+    - family-names: "Merchant"
+      given-names: "Rayyan"
+    - family-names: "Megerdoomian"
+      given-names: "Karine"
+  year: 2026
+  month: 3
+  collection-title: "The Proceedings of the First Workshop on NLP and LLMs for the Iranian Language Family"
+  conference:
+    name: "SilkRoadNLP @ ACL 2026"
+    city: "Rabat"
+    country: "MA"
+  publisher:
+    name: "Association for Computational Linguistics"
+  start: 131
+  end: 139
+  isbn: "979-8-89176-371-5"
+  doi: "10.18653/v1/2026.silkroadnlp-1.14"
+  url: "https://aclanthology.org/2026.silkroadnlp-1.14/"
