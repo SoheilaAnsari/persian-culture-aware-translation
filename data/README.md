@@ -25,7 +25,7 @@ These files are released as part of the paper supplementary materials under CC-B
 |---|---|
 | `book_number` | Masnavi book (1–6) |
 | `persian_text` | Persian verse, normalized |
-| `english_translation` | Nicholson's English translation (public domain) |
+| `english_translation` | English translation (public domain) |
 | `audio_filename` | Filename of the audio recitation (audio not redistributed) |
 | `language` | Always `fa` |
 | `persian_tokens` | Space-separated word-level tokens, aligned 1:1 with `csi_tags` |
@@ -70,8 +70,3 @@ Tokens are mBART-50 subwords (with `fa_IR` language prefix and `</s>` suffix); l
 
 Tab-separated, with columns including: `label`, `fa`, `en_raw`, `en_canon`, `count`, `avg_prob`, `score`, `rank`. The CSI-Recall metric reads `label`, `fa`, `en_canon`, and `rank`.
 
-## Obtaining the parallel corpus
-
-The full parallel train/val/test CSVs are not redistributed in this initial release. The Persian text comes from [masnavi.net](https://masnavi.net/); the English translation is Nicholson's (public domain). For the specific verse-aligned CSV used in the paper, contact the corresponding author.
-
-The Persian poetry corpus used for domain pre-training is publicly available: [amnghd/Persian_poems_corpus](https://github.com/amnghd/Persian_poems_corpus/tree/master).
