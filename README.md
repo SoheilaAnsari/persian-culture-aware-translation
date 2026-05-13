@@ -39,8 +39,8 @@ Refer to the paper for full methodology, results, related work, and discussion.
 │   │   ├── finetune.py                   Stage 2: parallel fine-tuning (Masnavi)
 │   │   └── evaluate.py                   BLEU + chrF++ + BERTScore + COMET
 │   │
-│   ├── multimodal/                       Pillar 2: PPFT + Wav2Vec2
-│   │   ├── config.py                     Multimodal training configuration
+│   ├── multimodal/                       Pillar 2: PPFT (Text-only model) + Wav2Vec2
+│   │   ├── config.py                     Multi-modal training configuration
 │   │   ├── data_loader.py                Loads aligned text + audio
 │   │   ├── model.py                      Cross-attention fusion architecture
 │   │   └── train.py                      DDP training loop
